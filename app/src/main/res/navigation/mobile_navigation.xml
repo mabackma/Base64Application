@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/savePictureFragment">
+
+    <fragment
+        android:id="@+id/savePictureFragment"
+        android:name="com.example.base64application.SavePictureFragment"
+        android:label="fragment_save_picture"
+        tools:layout="@layout/fragment_save_picture" >
+        <action
+            android:id="@+id/action_savePictureFragment_to_pictureListFragment"
+            app:destination="@id/pictureListFragment"
+            app:popUpTo="@id/savePictureFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/pictureListFragment"
+        android:name="com.example.base64application.PictureListFragment"
+        android:label="fragment_picture_list"
+        tools:layout="@layout/fragment_picture_list" />
+    <fragment
+        android:id="@+id/showPictureFragment"
+        android:name="com.example.base64application.ShowPictureFragment"
+        android:label="fragment_show_picture"
+        tools:layout="@layout/fragment_show_picture" />
+</navigation>

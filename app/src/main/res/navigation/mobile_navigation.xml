@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/savePictureFragment"
         android:name="com.example.base64application.SavePictureFragment"
-        android:label="fragment_save_picture"
-        tools:layout="@layout/fragment_save_picture" >
+        android:label="Save picture"
+        tools:layout="@layout/fragment_save_picture">
         <action
             android:id="@+id/action_savePictureFragment_to_pictureListFragment"
             app:destination="@id/pictureListFragment"
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/pictureListFragment"
         android:name="com.example.base64application.PictureListFragment"
-        android:label="fragment_picture_list"
+        android:label="All pictures"
         tools:layout="@layout/fragment_picture_list" />
     <fragment
         android:id="@+id/showPictureFragment"

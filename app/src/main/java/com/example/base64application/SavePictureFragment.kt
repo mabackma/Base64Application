@@ -151,12 +151,14 @@ class SavePictureFragment : Fragment() {
         queue.add(stringRequest)
     }
 
+    // Valitaan kuva galleriasta.
     private fun selectPictureFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
         startActivityForResult(intent, REQUEST_IMAGE_PICK)
     }
 
+    // Laitetaan valitun kuvan sijainti selectedImageUri muuttujaan ja näytetään kuva imageViewssa.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -169,7 +171,7 @@ class SavePictureFragment : Fragment() {
         }
     }
 
-    // Function to convert image URI to base64 string
+    // Muuttaa kuvan Base64 muotoon.
     private fun convertImageToBase64(imageUri: Uri): String {
         val inputStream: InputStream? = context?.contentResolver?.openInputStream(imageUri)
         val bytes = inputStream?.readBytes()

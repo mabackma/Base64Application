@@ -53,7 +53,7 @@ class SavePictureFragment : Fragment() {
     ): View? {
         _binding = FragmentSavePictureBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        var hasPermission = false
         val imageView = binding.imageView
 
         if (ContextCompat.checkSelfPermission(
@@ -62,7 +62,7 @@ class SavePictureFragment : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             // Permission is already granted, you can proceed to select the image
-            selectPictureFromGallery()
+            hasPermission = true
         } else {
             // Permission is not granted, request it from the user
             ActivityCompat.requestPermissions(
@@ -74,7 +74,9 @@ class SavePictureFragment : Fragment() {
 
         // Valitaan kuva kännykän galleriasta
         imageView.setOnClickListener {
-            selectPictureFromGallery()
+            if(hasPermission) {
+                selectPictureFromGallery()
+            }
         }
 
         binding.buttonSendPicture.setOnClickListener {
@@ -92,9 +94,9 @@ class SavePictureFragment : Fragment() {
                 sendDataToDirectus(title, description, value)
 
                 // Näytetään ponnahdusviesti.
-                Toast.makeText(context, "Thank you for your feedback!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Picture saved!", Toast.LENGTH_LONG).show()
 
-                // Siirrytään PictureList fragmenttiin.
+                // Siirrytään PictureList fragmenttiin
                 val action =
                     SavePictureFragmentDirections.actionSavePictureFragmentToPictureListFragment()
                 this.findNavController().navigate(action)

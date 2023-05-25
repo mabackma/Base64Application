@@ -20,10 +20,30 @@
         android:id="@+id/pictureListFragment"
         android:name="com.example.base64application.PictureListFragment"
         android:label="All pictures"
-        tools:layout="@layout/fragment_picture_list" />
+        tools:layout="@layout/fragment_picture_list" >
+        <action
+            android:id="@+id/action_pictureListFragment_to_showPictureFragment"
+            app:destination="@id/showPictureFragment" />
+    </fragment>
     <fragment
         android:id="@+id/showPictureFragment"
         android:name="com.example.base64application.ShowPictureFragment"
         android:label="fragment_show_picture"
-        tools:layout="@layout/fragment_show_picture" />
+        tools:layout="@layout/fragment_show_picture" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="value"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_showPictureFragment_to_pictureListFragment"
+            app:destination="@id/pictureListFragment" />
+    </fragment>
 </navigation>

@@ -1,8 +1,5 @@
 package com.example.base64application
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +49,9 @@ class MyPictureAdapter(private val pictures: List<MyPicture>) : RecyclerView.Ada
 
         // jos itemiä klikataan käyttöliittymässä, ajetaan tämä koodio
         override fun onClick(v: View) {
-
+            val action = PictureListFragmentDirections.actionPictureListFragmentToShowPictureFragment(picture?.id as Int,
+                picture?.title as String, picture?.description as String, picture?.value as String)
+            v.findNavController().navigate(action)
         }
 
     }

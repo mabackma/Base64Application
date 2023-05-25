@@ -82,7 +82,10 @@ class SavePictureFragment : Fragment() {
         binding.buttonSendPicture.setOnClickListener {
             val title = binding.editTextPictureTitle.text.toString()
             val description = binding.editTextPictureDescription.text.toString()
-            var value = convertImageToBase64(selectedImageUri)
+            var value = ""
+            if (::selectedImageUri.isInitialized) {
+                value = convertImageToBase64(selectedImageUri)
+            }
 
             Log.d("BASE64", value)
 

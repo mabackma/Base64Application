@@ -1,7 +1,10 @@
 package com.example.base64application
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -11,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.volley.AuthFailureError
@@ -51,12 +55,7 @@ class ShowPictureFragment : Fragment() {
 
         // Nappi jolla voidaan poistaa kuva
         binding.delete.setOnClickListener {
-            deleteFromDirectus(args.id)
-
-            Toast.makeText(context, "Deleted picture from ${args.title}", Toast.LENGTH_LONG).show()
-
-            val action = ShowPictureFragmentDirections.actionShowPictureFragmentToPictureListFragment()
-            this.findNavController().navigate(action)
+            confirmDelete()
         }
 
         return root
@@ -103,5 +102,33 @@ class ShowPictureFragment : Fragment() {
         if (bitmap != null) {
             binding.currentImage.setImageBitmap(bitmap)
         }
+    }
+
+    fun confirmDelete(): Boolean {
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("Are you sure you want to delete \"${args.title}\"?")
+
+        // Tehdään alertille kyllä ja ei napit.
+        builder.setPositiveButton("Yes") {_, _ ->
+
+            // Poistetaan kuva Directuksesta.
+            deleteFromDirectus(args.id)
+
+            Toast.makeText(context, "Deleted picture from ${args.title}", Toast.LENGTH_LONG).show()
+
+            val action = ShowPictureFragmentDirections.actionShowPictureFragmentToPictureListFragment()
+            this.findNavController().navigate(action)
+        }
+        builder.setNegativeButton("No", null)
+
+        // Näytetään AlertDialog kokonaisuudessaan.
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#00FF00"))
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#FF0000"))
+        }
+        dialog.show()
+
+        return true
     }
 }

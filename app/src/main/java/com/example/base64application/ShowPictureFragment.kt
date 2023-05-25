@@ -92,7 +92,8 @@ class ShowPictureFragment : Fragment() {
 
     // Poistaa kuvan.
     private fun deleteFromDirectus(id: Int) {
-        val url = "http://10.0.2.2:8055/items/mypicture/$id?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
+        val url = "http://192.168.1.100:8055/items/mypicture/$id?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY"
+        //val url = "http://10.0.2.2:8055/items/mypicture/$id?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
 
         val stringRequest: StringRequest = object : StringRequest(
             Request.Method.DELETE, url,

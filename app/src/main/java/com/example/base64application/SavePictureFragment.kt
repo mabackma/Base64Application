@@ -44,8 +44,6 @@ class SavePictureFragment : Fragment() {
     // Kuvan sijainti
     private lateinit var selectedImageUri: Uri
 
-    private val REQUEST_IMAGE_PICK = 1
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,30 +51,11 @@ class SavePictureFragment : Fragment() {
     ): View? {
         _binding = FragmentSavePictureBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        var hasPermission = false
         val imageView = binding.imageView
-
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            // Permission is already granted, you can proceed to select the image
-            hasPermission = true
-        } else {
-            // Permission is not granted, request it from the user
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                REQUEST_PERMISSION_READ_EXTERNAL_STORAGE
-            )
-        }
 
         // Valitaan kuva kännykän galleriasta
         imageView.setOnClickListener {
-            if(hasPermission) {
-                selectPictureFromGallery()
-            }
+            selectPictureFromGallery()
         }
 
         binding.buttonSendPicture.setOnClickListener {
@@ -115,7 +94,8 @@ class SavePictureFragment : Fragment() {
 
     private fun sendDataToDirectus(title: String, description: String, value: String) {
         val queue = Volley.newRequestQueue(requireContext())
-        val url = "http://10.0.2.2:8055/items/mypicture?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
+        val url = "http://192.168.1.100:8055/items/mypicture?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY"
+        //val url = "http://10.0.2.2:8055/items/mypicture?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
         val gson = GsonBuilder().create()
 
         val stringRequest: StringRequest = object : StringRequest(
@@ -160,14 +140,14 @@ class SavePictureFragment : Fragment() {
     private fun selectPictureFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_IMAGE_PICK)
+        startActivityForResult(intent, 1)
     }
 
     // Laitetaan valitun kuvan sijainti selectedImageUri muuttujaan ja näytetään kuva imageViewssa.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             val imageUri: Uri? = data?.data
             if (imageUri != null) {
                 selectedImageUri = imageUri // Assign the selected image URI to the variable

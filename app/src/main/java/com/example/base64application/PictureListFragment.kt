@@ -57,7 +57,8 @@ class PictureListFragment : Fragment() {
     }
     private fun getPicturesForRecycleView() {
         val queue = Volley.newRequestQueue(requireContext())
-        val url = "http://10.0.2.2:8055/items/mypicture?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
+        val url = "http://192.168.1.100:8055/items/mypicture?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY"
+        //val url = "http://10.0.2.2:8055/items/mypicture?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
         val gson = GsonBuilder().setPrettyPrinting().create()
 
         val stringRequest: StringRequest = object : StringRequest(

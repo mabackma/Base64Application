@@ -19,8 +19,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.base64application.databinding.FragmentShowPictureBinding
-import com.google.gson.GsonBuilder
-import java.io.UnsupportedEncodingException
 
 
 class ShowPictureFragment : Fragment() {

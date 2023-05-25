@@ -28,8 +28,8 @@
     <fragment
         android:id="@+id/showPictureFragment"
         android:name="com.example.base64application.ShowPictureFragment"
-        android:label="fragment_show_picture"
-        tools:layout="@layout/fragment_show_picture" >
+        android:label="Picture"
+        tools:layout="@layout/fragment_show_picture">
         <argument
             android:name="id"
             app:argType="integer" />

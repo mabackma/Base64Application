@@ -61,6 +61,36 @@ class ShowPictureFragment : Fragment() {
         return root
     }
 
+    // Kysyy käyttäjältä haluaako hän varmasti poistaa kuvan.
+    fun confirmDelete(): Boolean {
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("Are you sure you want to delete \"${args.title}\"?")
+
+        // Tehdään alertille kyllä ja ei napit.
+        builder.setPositiveButton("Yes") {_, _ ->
+
+            // Poistetaan kuva Directuksesta.
+            deleteFromDirectus(args.id)
+
+            Toast.makeText(context, "Deleted picture from ${args.title}", Toast.LENGTH_LONG).show()
+
+            val action = ShowPictureFragmentDirections.actionShowPictureFragmentToPictureListFragment()
+            this.findNavController().navigate(action)
+        }
+        builder.setNegativeButton("No", null)
+
+        // Näytetään AlertDialog kokonaisuudessaan.
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#00FF00"))
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#FF0000"))
+        }
+        dialog.show()
+
+        return true
+    }
+
+    // Poistaa kuvan.
     private fun deleteFromDirectus(id: Int) {
         val url = "http://10.0.2.2:8055/items/mypicture/$id?access_token=xc93fqjp4VLP8OlLaColJQK9BdZJZVZY" //+ BuildConfig.STATIC_TOKEN
 
@@ -102,33 +132,5 @@ class ShowPictureFragment : Fragment() {
         if (bitmap != null) {
             binding.currentImage.setImageBitmap(bitmap)
         }
-    }
-
-    fun confirmDelete(): Boolean {
-        val builder = AlertDialog.Builder(context)
-        builder.setMessage("Are you sure you want to delete \"${args.title}\"?")
-
-        // Tehdään alertille kyllä ja ei napit.
-        builder.setPositiveButton("Yes") {_, _ ->
-
-            // Poistetaan kuva Directuksesta.
-            deleteFromDirectus(args.id)
-
-            Toast.makeText(context, "Deleted picture from ${args.title}", Toast.LENGTH_LONG).show()
-
-            val action = ShowPictureFragmentDirections.actionShowPictureFragmentToPictureListFragment()
-            this.findNavController().navigate(action)
-        }
-        builder.setNegativeButton("No", null)
-
-        // Näytetään AlertDialog kokonaisuudessaan.
-        val dialog = builder.create()
-        dialog.setOnShowListener {
-            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#00FF00"))
-            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#FF0000"))
-        }
-        dialog.show()
-
-        return true
     }
 }

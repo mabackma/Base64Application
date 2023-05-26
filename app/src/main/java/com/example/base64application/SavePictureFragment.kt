@@ -53,7 +53,7 @@ class SavePictureFragment : Fragment() {
         val root: View = binding.root
         val imageView = binding.imageView
 
-        // Valitaan kuva kännykän galleriasta
+        // Valitaan kuva kännykän galleriasta.
         imageView.setOnClickListener {
             selectPictureFromGallery()
         }
